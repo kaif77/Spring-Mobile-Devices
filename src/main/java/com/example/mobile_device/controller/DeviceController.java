@@ -2,6 +2,7 @@ package com.example.mobile_device.controller;
 
 import com.example.mobile_device.model.Device;
 import com.example.mobile_device.service.DeviceService;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,37 +18,37 @@ public class DeviceController {
         this.deviceService = deviceService;
     }
 
-    @GetMapping("/devices")
+    @GetMapping(value = "/devices",produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Device> findAll() {
         return this.deviceService.findAll();
     }
 
-    @GetMapping("/devices/{deviceId}")
+    @GetMapping(value = "/devices/{deviceId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Optional<Device> findById(@PathVariable long deviceId) {
         return this.deviceService.findById(deviceId);
     }
 
-    @GetMapping("devices/name/{deviceName}")
+    @GetMapping(value = "devices/name/{deviceName}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Device> findByName(@PathVariable String deviceName) {
         return this.deviceService.findByName(deviceName);
     }
 
-    @GetMapping("/devices/model/{deviceModel}")
+    @GetMapping(value = "/devices/model/{deviceModel}",produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Device> findByModel(@PathVariable String deviceModel) {
         return this.deviceService.findByModel(deviceModel);
     }
 
-    @GetMapping("/devices/status/{deviceStatus}")
+    @GetMapping(value = "/devices/status/{deviceStatus}",produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Device> findByStaus(@PathVariable String deviceStatus) {
         return this.deviceService.findByStatus(deviceStatus);
     }
 
-    @PostMapping(value = "/devices")
+    @PostMapping(value = "/devices",consumes = MediaType.APPLICATION_JSON_VALUE )
     public ResponseEntity<?> saveDevice(@RequestBody Device device) {
         return this.deviceService.saveDevice(device);
     }
 
-    @PutMapping("/devices/{deviceId}")
+    @PutMapping(value = "/devices/{deviceId}",consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> updateDevice(@PathVariable long deviceId, @RequestBody Device device) {
         return this.deviceService.updateDevice(deviceId, device);
     }
