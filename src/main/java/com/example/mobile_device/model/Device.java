@@ -1,6 +1,6 @@
 package com.example.mobile_device.model;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class Device {
 
@@ -8,12 +8,12 @@ public class Device {
     private String name;
     private String status;
     private String model;
-    private Date enrolled;
+    private Timestamp enrolled;
 
     public Device() {
     }
 
-    public Device(String name, String status, String model, Date enrolled) {
+    public Device(String name, String status, String model, Timestamp enrolled) {
         this.name = name;
         this.status = status;
         this.model = model;
@@ -52,11 +52,11 @@ public class Device {
         this.model = model;
     }
 
-    public Date getEnrolled() {
+    public Timestamp getEnrolled() {
         return enrolled;
     }
 
-    public void setEnrolled(Date enrolled) {
+    public void setEnrolled(Timestamp enrolled) {
         this.enrolled = enrolled;
     }
 }

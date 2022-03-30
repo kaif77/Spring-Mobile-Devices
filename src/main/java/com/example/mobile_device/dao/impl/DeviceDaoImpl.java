@@ -27,7 +27,7 @@ public class DeviceDaoImpl implements DeviceDAO {
             device.setName(rs.getString("name"));
             device.setStatus(rs.getString("status"));
             device.setModel(rs.getString("model"));
-            device.setEnrolled(rs.getDate("enrolled"));
+            device.setEnrolled(rs.getTimestamp("enrolled"));
             return device;
         }
     }
