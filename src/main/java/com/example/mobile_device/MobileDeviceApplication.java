@@ -10,4 +10,5 @@ public class MobileDeviceApplication {
         SpringApplication.run(MobileDeviceApplication.class, args);
     }
 
+
 }
