@@ -9,7 +9,7 @@ public interface DeviceService {
 
     List<Device> findAll();
 
-    Optional<Device> findById(long Id);
+    Device findById(long Id);
 
     List<Device> findByName(String name);
 

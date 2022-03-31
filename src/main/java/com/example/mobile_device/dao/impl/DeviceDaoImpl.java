@@ -43,14 +43,14 @@ public class DeviceDaoImpl implements DeviceDAO {
     }
 
     @Override
-    public Optional<Device> findById(long deviceId) {
+    public Device findById(long deviceId) {
         try {
-            return Optional.ofNullable(jdbcTemplate.queryForObject("select * from device where id=?",
+            return jdbcTemplate.queryForObject("select * from device where id=?",
                     new Object[]{
                             deviceId
-                    }, new DeviceMapper()));
+                    }, new DeviceMapper());
         } catch (EmptyResultDataAccessException e) {
-            return Optional.empty();
+            return null;
         }
 
     }

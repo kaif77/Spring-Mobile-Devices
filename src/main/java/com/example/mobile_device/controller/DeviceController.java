@@ -26,8 +26,8 @@ public class DeviceController {
     }
 
     @GetMapping(value = "/devices/{deviceId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Optional<Device>> findById(@PathVariable long deviceId) {
-        Optional<Device> device = this.deviceService.findById(deviceId);
+    public ResponseEntity<Device> findById(@PathVariable long deviceId) {
+        Device device = this.deviceService.findById(deviceId);
         return ResponseEntity.status(200).body(device);
     }
 

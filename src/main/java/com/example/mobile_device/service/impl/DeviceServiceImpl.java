@@ -23,7 +23,7 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
-    public Optional<Device> findById(long Id) {
+    public Device findById(long Id) {
         return this.deviceDAO.findById(Id);
     }
 

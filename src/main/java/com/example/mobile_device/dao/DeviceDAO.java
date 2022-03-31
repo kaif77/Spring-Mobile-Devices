@@ -9,7 +9,7 @@ public interface DeviceDAO {
 
     List<Device> findAll();
 
-    Optional<Device> findById(long deviceId);
+    Device findById(long deviceId);
 
     List<Device> findByName(String name);
 
