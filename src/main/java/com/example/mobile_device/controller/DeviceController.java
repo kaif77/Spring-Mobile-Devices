@@ -19,48 +19,48 @@ public class DeviceController {
         this.deviceService = deviceService;
     }
 
-    @GetMapping(value = "/devices",produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/devices", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Device>> findAll() {
         List<Device> devices = this.deviceService.findAll();
         return ResponseEntity.status(200).body(devices);
     }
 
     @GetMapping(value = "/devices/{deviceId}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> findById(@PathVariable long deviceId) {
-        Optional<Device> device = this.deviceService.findById(deviceId);
-            return ResponseEntity.status(200).body(device);
+    public ResponseEntity<Device> findById(@PathVariable long deviceId) {
+        Device device = this.deviceService.findById(deviceId);
+        return ResponseEntity.status(200).body(device);
     }
 
     @GetMapping(value = "devices/name/{deviceName}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> findByName(@PathVariable String deviceName) {
+    public ResponseEntity<List<Device>> findByName(@PathVariable String deviceName) {
         List<Device> device = this.deviceService.findByName(deviceName);
         return ResponseEntity.status(200).body(device);
     }
 
-    @GetMapping(value = "/devices/model/{deviceModel}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> findByModel(@PathVariable String deviceModel) {
+    @GetMapping(value = "/devices/model/{deviceModel}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Device>> findByModel(@PathVariable String deviceModel) {
         List<Device> device = this.deviceService.findByModel(deviceModel);
         return ResponseEntity.status(200).body(device);
     }
 
-    @GetMapping(value = "/devices/status/{deviceStatus}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> findByStatus(@PathVariable String deviceStatus) {
+    @GetMapping(value = "/devices/status/{deviceStatus}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Device>> findByStatus(@PathVariable String deviceStatus) {
         List<Device> device = this.deviceService.findByStatus(deviceStatus);
         return ResponseEntity.status(200).body(device);
     }
 
-    @PostMapping(value = "/devices",consumes = MediaType.APPLICATION_JSON_VALUE )
-    public ResponseEntity<?> saveDevice(@RequestBody Device device) {
+    @PostMapping(value = "/devices", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<MessageResponse> saveDevice(@RequestBody Device device) {
         if (this.deviceService.saveDevice(device) == 1) {
-            return  ResponseEntity.status(201).body(new MessageResponse("Device Successfully Added"));
+            return ResponseEntity.status(201).body(new MessageResponse("Device Successfully Added"));
         } else {
             return ResponseEntity.status(404).body(new MessageResponse("Device Not Saved"));
         }
     }
 
-    @PutMapping(value = "/devices/{deviceId}",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> updateDevice(@PathVariable long deviceId, @RequestBody Device device) {
-             if (this.deviceService.updateDevice(deviceId, device) == 1) {
+    @PutMapping(value = "/devices/{deviceId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<MessageResponse> updateDevice(@PathVariable long deviceId, @RequestBody Device device) {
+        if (this.deviceService.updateDevice(deviceId, device) == 1) {
             return ResponseEntity.status(200).body(new MessageResponse("Device updated Successfully"));
         } else {
             return ResponseEntity.status(404).body(new MessageResponse("Unable to update device with Id:" + deviceId));
@@ -68,7 +68,7 @@ public class DeviceController {
     }
 
     @DeleteMapping(value = "/devices/{deviceId}")
-    public ResponseEntity<?> deleteDevice(@PathVariable long deviceId) {
+    public ResponseEntity<MessageResponse> deleteDevice(@PathVariable long deviceId) {
         if (this.deviceService.deleteDevice(deviceId) == 1) {
             return ResponseEntity.status(200).body(new MessageResponse("Device Deleted Successfully"));
         } else {
