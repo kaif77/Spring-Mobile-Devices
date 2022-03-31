@@ -6,14 +6,17 @@ public class Device {
 
     private long id;
     private String name;
-    private String status;
+    private deviceStatus status;
+    public enum deviceStatus{
+        enroll,active,inactive
+    }
     private String model;
     private Timestamp enrolled;
 
     public Device() {
     }
 
-    public Device(String name, String status, String model, Timestamp enrolled) {
+    public Device(String name, deviceStatus status, String model, Timestamp enrolled) {
         this.name = name;
         this.status = status;
         this.model = model;
@@ -37,11 +40,19 @@ public class Device {
     }
 
     public String getStatus() {
-        return status;
+        return status.name();
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStatus(String status) throws IllegalArgumentException {
+        if(status.equalsIgnoreCase("enroll"))
+            this.status = deviceStatus.enroll;
+        else if (status.equalsIgnoreCase("active")){
+            this.status = deviceStatus.active;
+        } else if (status.equalsIgnoreCase("inactive")){
+            this.status = deviceStatus.inactive;
+        } else {
+            throw new IllegalArgumentException("Invalid Status");
+        }
     }
 
     public String getModel() {

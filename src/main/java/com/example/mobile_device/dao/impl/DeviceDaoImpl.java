@@ -25,7 +25,11 @@ public class DeviceDaoImpl implements DeviceDAO {
             Device device = new Device();
             device.setId(rs.getLong("id"));
             device.setName(rs.getString("name"));
-            device.setStatus(rs.getString("status"));
+            try {
+                device.setStatus(rs.getString("status"));
+            } catch (IllegalArgumentException e) {
+                e.printStackTrace();
+            }
             device.setModel(rs.getString("model"));
             device.setEnrolled(rs.getTimestamp("enrolled"));
             return device;
@@ -34,7 +38,8 @@ public class DeviceDaoImpl implements DeviceDAO {
 
     @Override
     public List<Device> findAll() {
-        return jdbcTemplate.query("select * from device", new DeviceMapper());
+        String query = "select * from device";
+        return jdbcTemplate.query(query, new DeviceMapper());
     }
 
     @Override
@@ -52,17 +57,30 @@ public class DeviceDaoImpl implements DeviceDAO {
 
     @Override
     public List<Device> findByName(String name) {
-        return jdbcTemplate.query("select * from device where name=" + "'" + name + "'", new DeviceMapper());
+        List<Device> devices = jdbcTemplate.query("select * from device where name=?",
+                new Object[]{
+                        name
+                }, new DeviceMapper());
+        return devices;
     }
 
     @Override
     public List<Device> findByModel(String model) {
-        return jdbcTemplate.query("select * from device where model=" + "'" + model + "'", new DeviceMapper());
+        List<Device> devices = jdbcTemplate.query("select * from device where model=?",
+                new Object[]{
+                        model
+                }
+                , new DeviceMapper());
+        return devices;
     }
 
     @Override
     public List<Device> findByStatus(String status) {
-        return jdbcTemplate.query("select * from device where status=" + "'" + status + "'", new DeviceMapper());
+        List<Device> devices = jdbcTemplate.query("select * from device where status=?",
+                new Object[]{
+                        status
+                }, new DeviceMapper());
+        return devices;
     }
 
 

@@ -2,9 +2,7 @@ package com.example.mobile_device.service.impl;
 
 import com.example.mobile_device.dao.DeviceDAO;
 import com.example.mobile_device.model.Device;
-import com.example.mobile_device.payload.MessageResponse;
 import com.example.mobile_device.service.DeviceService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -12,6 +10,7 @@ import java.util.Optional;
 
 @Service
 public class DeviceServiceImpl implements DeviceService {
+//    @Autowired
     final private DeviceDAO deviceDAO;
 
     public DeviceServiceImpl(DeviceDAO deviceDAO) {
@@ -44,33 +43,21 @@ public class DeviceServiceImpl implements DeviceService {
     }
 
     @Override
-    public ResponseEntity<?> saveDevice(Device device) {
+    public int saveDevice(Device device) {
     //   checks whether sql has completed successfully if completed it returns 1 which is true
-        if (this.deviceDAO.save(device) == 1) {
-            return  ResponseEntity.status(201).body(new MessageResponse("Device Successfully Added"));
-        } else {
-            return ResponseEntity.status(404).body(new MessageResponse("Device Not Saved"));
-        }
+        return this.deviceDAO.save(device);
     }
 
     @Override
-    public ResponseEntity<?> updateDevice(long id, Device device) {
+    public int updateDevice(long id, Device device) {
 //        checks whether sql has completed successfully if completed it returns 1 which is true
-        if (this.deviceDAO.updateDevice(id, device) == 1) {
-            return ResponseEntity.status(200).body(new MessageResponse("Device updated Successfully"));
-        } else {
-            return ResponseEntity.status(404).body(new MessageResponse("Unable to update device with Id:" + id));
-        }
+        return this.deviceDAO.updateDevice(id,device);
     }
 
     @Override
-    public ResponseEntity<?> deleteDevice(long id) {
+    public int deleteDevice(long id) {
     //    checks whether sql has completed successfully if completed it returns 1 which is true
-        if (this.deviceDAO.deleteDevice(id) == 1) {
-            return ResponseEntity.status(200).body(new MessageResponse("Device Deleted Successfully"));
-        } else {
-            return ResponseEntity.status(404).body(new MessageResponse("Unable to delete device with Id:" + id));
-        }
+        return this.deviceDAO.deleteDevice(id);
     }
 
 }
